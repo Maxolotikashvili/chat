@@ -14,7 +14,7 @@ export class UserComponent {
 
   //
   sendUserName() {
-    this.chatService.exchangeUserNames(this.userName);
+    this.chatService.sendUser(this.userName)
     this.dialog.closeAll();
   }
 }

@@ -11,14 +11,14 @@ import { UserComponent } from './user/user.component';
 export class AppComponent implements OnInit {
   title = 'chat';
   newMessage!: string;
-  messageList: string[] = [];
-  userName!: string;
+  data: {user: string, id: string, message: string}[] = [];
+  usersList: {name: string, id: string}[] = [];
 
   constructor(private chatService: ChatService, private dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.openUserInput();
-    this.getUserName();
+    this.getUserList();
     this.getMessages();
   }
 
@@ -34,10 +34,13 @@ export class AppComponent implements OnInit {
   }
 
   //
-  getUserName() {
-    this.chatService.exchangeUserNames().subscribe((user: string) => {
-      this.userName = user;
-    });
+  getUserList() {
+    this.chatService.getUserList().subscribe((usersList) => {
+      this.usersList = usersList;
+      console.log(this.usersList)
+      console.log(this.data)
+      // console.log(this.data[0].id! === usersList[0].id!);
+    })
   }
 
   //
@@ -48,8 +51,10 @@ export class AppComponent implements OnInit {
 
   //
   getMessages() {
-    this.chatService.getNewMessage().subscribe((message: string) => {
-      this.messageList.push(message);
+    this.chatService.getNewMessage().subscribe((data: {user: string, id: string, message: string}) => {
+      if (data?.user) {
+        this.data.push(data);
+      }
     })
   }
 }

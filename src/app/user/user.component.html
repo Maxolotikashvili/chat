@@ -1,7 +1,7 @@
 <div>
     <mat-form-field>
         <mat-label>Enter Your Name</mat-label>
-        <input type="text" matInput [(ngModel)]="userName">
+        <input type="text" matInput [(ngModel)]="userName" (keyup)="$event.keyCode === 13 && sendUserName()">
     </mat-form-field>
     
     <button type="submit" (click)="sendUserName()">Submit</button>

@@ -7,12 +7,28 @@ import { BehaviorSubject } from "rxjs";
     providedIn: 'root'
 })
 export class ChatService {
-    public message$: BehaviorSubject<string> = new BehaviorSubject('');
-    public user$: BehaviorSubject<string> = new BehaviorSubject('');
+    data!: {user: string, id: string, message: string}
+    user!: {name: string, id: string}[];
 
+    public data$: BehaviorSubject<{user: string, id: string, message: string}> = new BehaviorSubject(this.data);
+    public userLisT$: BehaviorSubject<{name: string, id: string}[]> = new BehaviorSubject(this.user);
     socket = io(API_URL);
 
-    constructor() { };
+    constructor() { }
+
+    //
+    sendUser(user: string) {
+        this.socket.emit('user', user);
+    }
+
+    //
+    getUserList() {
+        this.socket.on('userlist', (userlist: {name: string, id: string}[]) => {
+            this.userLisT$.next(userlist);
+        });
+
+        return this.userLisT$.asObservable();
+    }
 
     //
     sendMessage(message: string) {
@@ -21,19 +37,10 @@ export class ChatService {
 
     //
     getNewMessage = () => {
-        this.socket.on('message', (message) => {
-            this.message$.next(message);
+        this.socket.on('data', (data) => {
+            this.data$.next(data);
         });
 
-        return this.message$.asObservable();
+        return this.data$.asObservable();
     };
-
-    //
-    exchangeUserNames(user?: string) {
-        if (user) {
-            this.user$.next(user);
-        }
-        
-        return this.user$.asObservable();
-    }
 }

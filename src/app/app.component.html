@@ -1,14 +1,14 @@
 <div class="component-wrapper">
     <div class="chat-wrapper">
-        <ng-container *ngFor="let message of messageList">
-            <li *ngIf="message">{{userName}}: {{message}}</li>
+        <ng-container *ngFor="let data of data">
+            <li *ngIf="data.message" [ngClass]="{'align-left': data.id === usersList[0].id, 'align-right': data.id === usersList[1].id}">{{data.user}}: {{data.message}}</li>
         </ng-container>
     </div>
         
     <div class="input-wrapper">
         <mat-form-field>
             <mat-label>Type Here</mat-label>
-            <input type="text" matInput [(ngModel)]="newMessage" (keyup)="$event.keyCode == 13 && sendMessage()">
+            <input type="text" matInput [(ngModel)]="newMessage" (keyup)="$event.keyCode === 13 && sendMessage()">
         </mat-form-field>
 
         <button (click)="sendMessage()">Send</button>
