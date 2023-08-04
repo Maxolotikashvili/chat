@@ -9,11 +9,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { UserComponent } from './user/user.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { UserslistComponent } from './userslist/userslist.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     UserComponent,
+    UserslistComponent,
   ],
   imports: [
     BrowserModule,
@@ -23,7 +26,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     BrowserAnimationsModule,
     MatInputModule,
     MatFormFieldModule,
-    MatDialogModule
+    MatDialogModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]

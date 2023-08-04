@@ -1,16 +1,29 @@
 <div class="component-wrapper">
-    <div class="chat-wrapper">
-        <ng-container *ngFor="let data of data">
-            <li *ngIf="data.message" [ngClass]="{'align-left': data.id === usersList[0].id, 'align-right': data.id === usersList[1].id}">{{data.user}}: {{data.message}}</li>
-        </ng-container>
-    </div>
-        
-    <div class="input-wrapper">
-        <mat-form-field>
-            <mat-label>Type Here</mat-label>
-            <input type="text" matInput [(ngModel)]="newMessage" (keyup)="$event.keyCode === 13 && sendMessage()">
-        </mat-form-field>
 
-        <button (click)="sendMessage()">Send</button>
+    <ng-container *ngIf="usersList">
+        <app-userslist [USERS_CONNECTED]="usersList"></app-userslist>
+    </ng-container>
+
+    <div class="chat-wrapper">
+        <div class="message-wrapper">
+            <ng-container *ngFor="let data of data">
+                
+                <li *ngIf="data.message" [ngClass]="{'align-right': usersList[1] && data.id === usersList[1].id}" #list>
+                    <div class="user-image-text-wrapper" [ngClass]="{'secondary': list.className.includes('align-right')}">
+                        <div>{{data.user[0] | uppercase}}</div>
+                        <p>{{data.message}}</p>
+                    </div>
+                </li>
+            </ng-container>
+        </div>
+
+        <div class="input-wrapper">
+            <mat-form-field>
+                <mat-label>Type Here</mat-label>
+                <input type="text" matInput [(ngModel)]="newMessage" (keyup)="$event.keyCode === 13 && sendMessage()">
+            </mat-form-field>
+
+            <button mat-flat-button color="accent" (click)="sendMessage()">Send</button>
+        </div>
     </div>
 </div>

@@ -2,28 +2,34 @@ import { Injectable } from "@angular/core";
 import { API_URL } from "./api-url";
 import { io } from "socket.io-client";
 import { BehaviorSubject } from "rxjs";
+import { Data } from "./model";
+import { User } from "./model";
 
 @Injectable({
     providedIn: 'root'
 })
 export class ChatService {
-    data!: {user: string, id: string, message: string}
-    user!: {name: string, id: string}[];
+    data!: Data;
+    usersList!: User[];
 
-    public data$: BehaviorSubject<{user: string, id: string, message: string}> = new BehaviorSubject(this.data);
-    public userLisT$: BehaviorSubject<{name: string, id: string}[]> = new BehaviorSubject(this.user);
+    public mainUser$: BehaviorSubject<string> = new BehaviorSubject('');
+    public data$: BehaviorSubject<Data> = new BehaviorSubject(this.data);
+    public userLisT$: BehaviorSubject<User[]> = new BehaviorSubject(this.usersList);
+
     socket = io(API_URL);
 
     constructor() { }
 
     //
-    sendUser(user: string) {
+    sendUserToSocket(user: string) {
         this.socket.emit('user', user);
+        this.mainUser$.next(user)
+        return this.mainUser$.asObservable();
     }
 
     //
     getUserList() {
-        this.socket.on('userlist', (userlist: {name: string, id: string}[]) => {
+        this.socket.on('userlist', (userlist: User[]) => {
             this.userLisT$.next(userlist);
         });
 
@@ -36,7 +42,7 @@ export class ChatService {
     }
 
     //
-    getNewMessage = () => {
+    getNewMessage() {
         this.socket.on('data', (data) => {
             this.data$.next(data);
         });

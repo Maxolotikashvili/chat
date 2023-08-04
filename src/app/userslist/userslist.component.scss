@@ -1,0 +1,22 @@
+section {
+    position: fixed;
+    width: 15%;
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+    padding: 20px;
+    background-color: cadetblue;
+
+    h2 {
+        letter-spacing: 1px;
+        font-weight: 400;
+    }
+
+    ul {
+        li {
+            list-style: inside;
+            margin: 20px 0;
+            letter-spacing: 1px;
+        }
+    }
+}

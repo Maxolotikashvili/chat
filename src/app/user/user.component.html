@@ -4,5 +4,5 @@
         <input type="text" matInput [(ngModel)]="userName" (keyup)="$event.keyCode === 13 && sendUserName()">
     </mat-form-field>
     
-    <button type="submit" (click)="sendUserName()">Submit</button>
+    <button mat-flat-button color="accent" type="submit" (click)="sendUserName()">Submit</button>
 </div>
