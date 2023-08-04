@@ -17,8 +17,10 @@ export class AppComponent implements OnInit {
   mainUser!: string;
   sendMessageSound: HTMLAudioElement = new Audio('/assets/sent-sound.mp3');
   receivedMessageSound: HTMLAudioElement = new Audio('/assets/received-sound.mp3');
+  userConnectedNotification!: string;
+  disconnectedUser!: string;
 
-  constructor(private chatService: ChatService, private dialog: MatDialog) {}
+  constructor(private chatService: ChatService, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.openUserInput();
@@ -47,8 +49,23 @@ export class AppComponent implements OnInit {
 
   //
   getUserList() {
-    this.chatService.getUserList().subscribe((usersList) => {
-      this.usersList = usersList; 
+    this.chatService.getUserList().subscribe((usersList: User[]) => {
+
+      if (usersList) {
+        if (this.usersList.length > usersList.length) {
+          for (let user of usersList) {
+            this.disconnectedUser = this.usersList.find((item) => item.id !== user.id)?.name!;
+
+            setTimeout(() => {
+              this.disconnectedUser = '';
+            }, 5000);
+          }
+        }
+
+        this.userConnectedNotification = usersList[usersList.length - 1].name;
+        this.usersList = Array.from(usersList);
+
+      }
     })
   }
 
@@ -66,7 +83,6 @@ export class AppComponent implements OnInit {
     this.chatService.getNewMessage().subscribe((data: Data) => {
       if (data?.user) {
         this.data.push(data);
-        console.log(this.mainUser)
         if (this.mainUser !== data.user) {
           this.receivedMessageSound.pause();
           this.receivedMessageSound.currentTime = 0;

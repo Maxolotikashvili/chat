@@ -14,7 +14,7 @@ export class ChatService {
 
     public mainUser$: BehaviorSubject<string> = new BehaviorSubject('');
     public data$: BehaviorSubject<Data> = new BehaviorSubject(this.data);
-    public userLisT$: BehaviorSubject<User[]> = new BehaviorSubject(this.usersList);
+    public userList$: BehaviorSubject<User[]> = new BehaviorSubject(this.usersList);
 
     socket = io(API_URL);
 
@@ -30,10 +30,10 @@ export class ChatService {
     //
     getUserList() {
         this.socket.on('userlist', (userlist: User[]) => {
-            this.userLisT$.next(userlist);
+            this.userList$.next(userlist);
         });
 
-        return this.userLisT$.asObservable();
+        return this.userList$.asObservable();
     }
 
     //

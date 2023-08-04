@@ -5,25 +5,33 @@
     </ng-container>
 
     <div class="chat-wrapper">
+        <h3>{{userConnectedNotification}} {{'has joined the chat' | titlecase}}</h3>
         <div class="message-wrapper">
             <ng-container *ngFor="let data of data">
-                
+
                 <li *ngIf="data.message" [ngClass]="{'align-right': usersList[1] && data.id === usersList[1].id}" #list>
-                    <div class="user-image-text-wrapper" [ngClass]="{'secondary': list.className.includes('align-right')}">
+                    <div class="user-image-text-wrapper"
+                        [ngClass]="{'secondary': list.className.includes('align-right')}">
                         <div>{{data.user[0] | uppercase}}</div>
                         <p>{{data.message}}</p>
                     </div>
                 </li>
             </ng-container>
+
         </div>
 
         <div class="input-wrapper">
-            <mat-form-field>
-                <mat-label>Type Here</mat-label>
-                <input type="text" matInput [(ngModel)]="newMessage" (keyup)="$event.keyCode === 13 && sendMessage()">
-            </mat-form-field>
+            <p *ngIf="disconnectedUser">{{disconnectedUser}} Has Left The Chat</p>
+            
+            <div class="form-send-button-wrapper">
+                <mat-form-field>
+                    <mat-label>Type Here</mat-label>
+                    <input type="text" matInput [(ngModel)]="newMessage"
+                        (keyup)="$event.keyCode === 13 && sendMessage()">
+                </mat-form-field>
 
-            <button mat-flat-button color="accent" (click)="sendMessage()">Send</button>
+                <button mat-flat-button color="accent" (click)="sendMessage()">Send</button>
+            </div>
         </div>
     </div>
 </div>

@@ -6,11 +6,15 @@
 
     .chat-wrapper {
         display: flex;
-        width: 90%;
+        width: 85%;
         flex-flow: column;
         justify-content: center;
         align-items: center;
         padding-bottom: 10%;
+
+        h3 {
+            margin-top: 10px;
+        }
 
         .message-wrapper {
             display: flex;
@@ -73,13 +77,23 @@
 
     .input-wrapper {
         display: flex;
+        flex-flow: column;
         position: fixed;
         width: 50%;
         height: 8%;
-        bottom: 0;
-        margin-top: 50px;
+        bottom: 5%;
         background-color: #ffffff8e;
+
+        p {
+            text-align: center;
+            margin-bottom: 20px;
+        }
     
+        .form-send-button-wrapper {
+            display: flex;
+            width: 100%;
+        }
+
         mat-form-field {
             width: 90%;
         }
