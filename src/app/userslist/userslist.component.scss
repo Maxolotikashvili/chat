@@ -20,3 +20,36 @@ section {
         }
     }
 }
+
+@media only screen and (max-width: 1200px) {
+    section {
+        width: 20%;
+
+        h2 {
+            text-align: center;
+            font-size: 18px;
+        }
+    }    
+}
+
+@media only screen and (max-width: 800px) {
+    section {
+        width: 25%;
+    }    
+}
+
+@media only screen and (max-width: 800px) {
+    section {
+        width: 30%;
+    }    
+}
+
+@media only screen and (max-width: 800px) {
+    section {
+        padding: 20px 5px;
+
+        h2 {
+            letter-spacing: initial;
+        }
+    }    
+}
