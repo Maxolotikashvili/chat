@@ -1,2 +1,1 @@
-const serverApi: string = 'https://chat-api-production-8779.up.railway.app/';
-export const API_URL: string = serverApi;
+export const API_URL: string = 'https://community-chat-api-96f390d891c8.herokuapp.com/';
