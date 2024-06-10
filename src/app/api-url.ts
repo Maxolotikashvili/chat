@@ -1,1 +1,1 @@
-export const API_URL: string = 'https://community-chat-api-96f390d891c8.herokuapp.com/';
+export const API_URL: string = 'https://cyberhub-maxolotikashvili-c7736efc.koyeb.app/';
